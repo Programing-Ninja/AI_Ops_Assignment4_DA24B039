@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+  external_labels:
+    project: da3408-a4
+rule_files:
+  - /etc/prometheus/alerts.yml
+scrape_configs:
+  - job_name: caption_app
+    static_configs:
+      - targets: ["localhost:8000"]
+        labels:
+          service: streamlit-captioner
+          model: blip-image-captioning-base
+  - job_name: node
+    static_configs:
+      - targets: ["localhost:9100"]
+        labels:
+          service: node-exporter
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
